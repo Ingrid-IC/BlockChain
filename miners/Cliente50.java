@@ -47,7 +47,8 @@ class Cliente50{
 			if(!miners.State()) state = 0;
 			if(miners.State() && state != 2) state = 1;
 			if(state == 0) System.out.print("");
-			if(state == 1){ 
+			if(Global.stop) state = 2;
+			if(state == 1 && !Global.stop){ 
 				state = 2;
 				System.out.println("Minero encontró una posible key!");
 				int key = miners.getKey();
@@ -56,6 +57,7 @@ class Cliente50{
 				System.out.println("Texto: " + miners.getText());
 				String founded = ""+';'+ key +';'+ result +';'+ time;
 				ClienteEnvia("encontre" + founded); //minero encontró key
+				Global.stop = true;
 			}
 		}
 
@@ -80,6 +82,7 @@ class Cliente50{
 				String[] founded = llego.split(";");   // parar ; key
 				String key = founded[1];
 				System.out.println("Estado: Verificando key");
+				Global.stop = true;
 				boolean check = miners.CheckKey(Integer.parseInt(key));
 				ClienteEnvia("verificado;" + check);
 			}
@@ -95,12 +98,14 @@ class Cliente50{
 					miners.setText(text);
 					miners.setZeros(zeros);
 					miners.start();
+					state = 0;
 				}else {
 					miners = new Miners();
 					miners.setText(text);
 					miners.setZeros(zeros);
 					miners.start();
 					state = 0;
+					Global.stop = false;
 				}
 			}
 		}

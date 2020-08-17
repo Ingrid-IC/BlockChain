@@ -45,7 +45,7 @@ public class Servidor50 {
 		).start();
 
 		try{
-			Thread.sleep(1000);
+			Thread.sleep(4000);
 		} 
 		catch(InterruptedException e){
 			 // this part is executed when an exception (in this example InterruptedException) occurs
@@ -128,6 +128,7 @@ public class Servidor50 {
 		if(llego.contains("encontre")){
 			String key = PrintValue(llego);
 			ServidorEnvia("parar;" + key);
+			Global.stop = true;
 		}else if(llego.contains("verificado")){
 			String[] checking = llego.split(";");   // verificado ; check
 			String check = checking[1];
@@ -150,6 +151,7 @@ public class Servidor50 {
 			System.out.println("Todos los mineros verificaron la key!");
 			System.out.println("================================================");
 			Global.found = true;
+			Global.stop = false;
 			numberMiners = 0;
 		}
 	}
@@ -165,7 +167,7 @@ public class Servidor50 {
 		System.out.println("Ceros: " + zeros);
 		System.out.println("Key: " + key);
 		System.out.println("Result: " + result);
-		System.out.println("Tiempo (segundos): " + time);
+		System.out.println("Tiempo (milisegundos): " + time);
 		return key;
 	}
 	/*

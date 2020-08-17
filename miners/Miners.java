@@ -22,12 +22,13 @@ public class Miners extends Thread{
 	public void run(){
 		long start = System.currentTimeMillis();
 		while(!this.founded){
-			key = (int)(Math.random()*9000000);
+			key = (int)(Math.random()*900000000);
 			result = ResultText(text+key);
 			this.founded = CheckZero(result);
 		}
 		long fin = System.currentTimeMillis();
-		time = (double) ((fin - start)/1000);
+		//time = (double) ((fin - start)/1000);
+		time = (double) (fin - start);
 	}
 
 	public void Stop(){
